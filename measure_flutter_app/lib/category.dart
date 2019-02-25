@@ -17,11 +17,19 @@ class Category extends StatelessWidget {
   /// the UI, and the icon that represents it (e.g. a ruler).
   // TODO: You'll need the name, color, and iconLocation from main.dart
 
-  final String _name;
-  final IconData _icon;
-  final Color _color;
+  final String name;
+  final ColorSwatch color;
+  final IconData iconLocation;
 
-  const Category(this._icon, this._color, this._name);
+  const Category({
+    Key key,
+    @required this.name,
+    @required this.color,
+    @required this.iconLocation,
+  })  : assert(name != null),
+        assert(color != null),
+        assert(iconLocation != null),
+        super(key: key);
 
   /// Builds a custom widget that shows [Category] information.
   ///
@@ -34,23 +42,38 @@ class Category extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: Build the custom widget here, referring to the Specs.
     return Material(
-      child:
-      Container(//color: Colors.green,
-      height: 100.0,
-      padding: EdgeInsets.all(8.0),
-      child: InkWell(borderRadius: BorderRadius.circular(50.0),
-        child:
-      Row(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Icon(_icon,size: 60,),
+      color: Colors.transparent,
+      child: Container(
+        //color: Colors.green,
+        height: 100.0,
+        padding: EdgeInsets.all(8.0),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(50.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Icon(
+                  iconLocation,
+                  size: 60,
+                ),
+              ),
+              Center(
+                  child: Text(
+                name,
+                textAlign: TextAlign.center,
+                style: new TextStyle(fontSize: 24.0),
+              )),
+            ],
           ),
-          Center(child:Text(_name, style: new TextStyle(fontSize: 24.0),)),
-        ],
-      ),onTap: () {
-        print("it's tapped!");
-      },splashColor: _color,highlightColor: _color,),
-    ),);
+          onTap: () {
+            print("it's tapped!");
+          },
+          splashColor: color,
+          highlightColor: color,
+        ),
+      ),
+    );
   }
 }
